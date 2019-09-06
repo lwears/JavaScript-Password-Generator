@@ -19,24 +19,38 @@ function getPassword(length) {
 }
 
 var rangeslider = document.getElementById("sliderRange"); 
+
+function changePassword(sliderValue) {
+    let newPass;
+    for (let i = 0; i < 3; i++) {
+        let passToChange = document.getElementById( "demo" + i ).textContent;
+
+        if (sliderValue > 0) {
+            newPass = passToChange.replace(/a/g, '4');
+        } 
+        if (sliderValue > 1) {
+            newPass = newPass.replace(/e/g, '3');
+        }
+        if (sliderValue > 2) {
+            newPass = newPass.replace(/l/g, '1');
+        }
+        if (sliderValue > 3) {
+            newPass = newPass.replace(/o/g, '0');
+        }
+        if (sliderValue > 4) {
+            newPass = newPass.replace(/s/g, '5');
+        }
+        if (sliderValue > 5) {
+            newPass = newPass.replace(/t/g, '7');
+        }
+    
+        document.getElementById( "demo" + i ).textContent = newPass; 
+    }
+}
   
 rangeslider.oninput = function() { 
   slider.innerHTML = this.value;
-  if (this.value == 1) {
-      for (let i = 0; i < 3; i++) {
-        let passToChange = document.getElementById( "demo" + i ).textContent;
-        let newPass = passToChange.replace(/a/g, '4'); 
-        document.getElementById( "demo" + i ).textContent = newPass; 
-      }
-    
-  } else if (this.value == 2) {
-        for (let i = 0; i < 3; i++) {
-            let passToChange = document.getElementById( "demo" + i ).textContent;
-            let newPass = passToChange.replace(/a/g, '4') 
-                                      .replace(/e/g, '3'); 
-            document.getElementById( "demo" + i ).textContent = newPass; 
-        }
-  } 
+  changePassword(this.value);
 } 
 
 
