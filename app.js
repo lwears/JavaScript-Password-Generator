@@ -38,7 +38,10 @@ function changePassword(sliderValue) {
 
         /*if (sliderValue == 0) {
             newPass = passToChange;
-        }*/ 
+        }*/
+        if (sliderValue == 0) {
+            document.getElementById( "demo" + i ).textContent = passwordArray[i];
+        }
         if (sliderValue == 1) {
             newPass1 = passwordToChange.replace(/a/g, '4');
             document.getElementById( "demo" + i ).textContent = newPass1;
@@ -82,13 +85,13 @@ function changePassword(sliderValue) {
 }
   
 rangeslider.oninput = function() { 
-  slider.innerHTML = this.value;
+  rangeslider.innerHTML = this.value;
   //let passToChange = document.getElementById( "demo" + i ).textContent;
   changePassword(this.value);
 }
 
 rangeslider.onchange = function() { 
-    slider.innerHTML = this.value;
+    rangeslider.innerHTML = this.value;
     //let passToChange = document.getElementById( "demo" + i ).textContent;
     changePassword(this.value);
   } 

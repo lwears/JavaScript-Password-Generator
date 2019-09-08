@@ -7,6 +7,7 @@ body {
 		#abbaab
 	); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 	font-family: 'Roboto', sans-serif;
+	text-align: center;
 }
 
 h1 {
@@ -20,8 +21,22 @@ h1 {
 }
 
 #container {
-	width: 360px;
+	width: 500px;
 	margin: 100px auto;
 	background: #f7f7f7;
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+	border-radius: 5px;
+}
+
+.button {
+	background-color: #4682b4;
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
 }
