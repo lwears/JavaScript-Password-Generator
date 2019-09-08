@@ -3,31 +3,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="styles.css">
     <title>Document</title>
 </head>
 <body>
-    <h1>Liams Password Generator</h1>
+    <div id="container">
+        <h1>Liams Password Generator</h1>
 
-    <p>How many words would you like</p>
-    <select id="pwdLength">
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-    </select>
+        <p>How many words would you like</p>
+        <select id="pwdLength">
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+        </select>
 
-    <div class="slidecontainer">
-        <input type="range" min="0" max="6" value="0" class="slider" id="sliderRange">
+        <div class="slidecontainer">
+            <input type="range" min="0" max="6" value="0" class="slider" id="sliderRange">
+        </div>
+
+        <input type="button" value="Generate" id="genPwd">
+        <p>Value: <span id="demo0"></span></p>
+        <p>Value: <span id="demo1"></span></p>
+        <p>Value: <span id="demo2"></span></p>
     </div>
-
-    <input type="button" value="Generate" id="genPwd">
-    <p>Value: <span id="demo0"></span></p>
-    <p>Value: <span id="demo1"></span></p>
-    <p>Value: <span id="demo2"></span></p>
-    <p>Value: <span id="slider"></span></p>
 
 </body>
 <script type="text/javascript" src="app.js"></script>
