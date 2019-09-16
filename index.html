@@ -11,8 +11,9 @@
     <div id="container">
         <h1>Liams Password Generator</h1>
 
-        <p>How many words would you like</p>
-        <select id="pwdLength">
+        <p class="test">How many words would you like</p>
+        
+        <select class="custom-select test" id="pwdLength">
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
@@ -20,9 +21,13 @@
             <option value="6">6</option>
             <option value="7">7</option>
         </select>
+        
 
-        <div class="slidecontainer">
-            <input type="range" min="0" max="6" value="0" class="slider" id="sliderRange">
+        <div class="">
+        <p class="">How alphanumeric would you like the passphrase?</p>
+            <div class="test">
+                <input type="range" min="0" max="6" value="0" class="test" id="sliderRange">
+            </div>
         </div>
 
         <input class="button" type="button" value="Generate" id="genPwd">

@@ -9,8 +9,7 @@ function getPassword(length) {
         let password = [];
         for (let i = 0; i < length; i++) {
             let item = words[Math.floor(Math.random()*words.length)];
-            let candidate = item;
-            password.push(candidate);
+            password.push(item);
         }
         let newPassword = password.join('-');
 
@@ -25,20 +24,17 @@ function getPassword(length) {
 let rangeslider = document.getElementById("sliderRange"); 
 
 function changePassword(sliderValue) {
-    let newPass1;
-    let newPass2;
-    let newPass3;
-    let newPass4;
-    let newPass5;
-    let newPass6;
+    // let newPass1;
+    // let newPass2;
+    // let newPass3;
+    // let newPass4;
+    // let newPass5;
+    // let newPass6;
     for (let i = 0; i < 3; i++) {
         // need to change this!
         let passwordToChange = passwordArray[i];
-        let passToChange = document.getElementById( "demo" + i ).textContent;
+        //let passToChange = document.getElementById( "demo" + i ).textContent;
 
-        /*if (sliderValue == 0) {
-            newPass = passToChange;
-        }*/
         if (sliderValue == 0) {
             document.getElementById( "demo" + i ).textContent = passwordArray[i];
         }
@@ -48,37 +44,37 @@ function changePassword(sliderValue) {
         }
         if (sliderValue == 2) {
             newPass2 = passwordToChange.replace(/e/g, '3')
-                            .replace(/a/g, '4');
+                                        .replace(/a/g, '4');
             document.getElementById( "demo" + i ).textContent = newPass2;
         }
         if (sliderValue == 3) {
             newPass3 = passwordToChange.replace(/l/g, '1')
-                            .replace(/e/g, '3')
-                            .replace(/a/g, '4');
+                                        .replace(/e/g, '3')
+                                        .replace(/a/g, '4');
             document.getElementById( "demo" + i ).textContent = newPass3;
         }
         if (sliderValue == 4) {
             newPass4 = passwordToChange.replace(/o/g, '0')
-                            .replace(/l/g, '1')
-                            .replace(/e/g, '3')
-                            .replace(/a/g, '4');
+                                        .replace(/l/g, '1')
+                                        .replace(/e/g, '3')
+                                        .replace(/a/g, '4');
             document.getElementById( "demo" + i ).textContent = newPass4;
         }
         if (sliderValue == 5) {
             newPass5 = passwordToChange.replace(/s/g, '5')
-                            .replace(/o/g, '0')
-                            .replace(/l/g, '1')
-                            .replace(/e/g, '3')
-                            .replace(/a/g, '4');
+                                        .replace(/o/g, '0')
+                                        .replace(/l/g, '1')
+                                        .replace(/e/g, '3')
+                                        .replace(/a/g, '4');
             document.getElementById( "demo" + i ).textContent = newPass5;
         }
         if (sliderValue == 6) {
             newPass6 = passwordToChange.replace(/t/g, '7')
-                            .replace(/s/g, '5')
-                            .replace(/o/g, '0')
-                            .replace(/l/g, '1')
-                            .replace(/e/g, '3')
-                            .replace(/a/g, '4');
+                                        .replace(/s/g, '5')
+                                        .replace(/o/g, '0')
+                                        .replace(/l/g, '1')
+                                        .replace(/e/g, '3')
+                                        .replace(/a/g, '4');
             document.getElementById( "demo" + i ).textContent = newPass6;
         }
     }
@@ -86,20 +82,20 @@ function changePassword(sliderValue) {
   
 rangeslider.oninput = function() { 
   rangeslider.innerHTML = this.value;
-  //let passToChange = document.getElementById( "demo" + i ).textContent;
   changePassword(this.value);
 }
 
 rangeslider.onchange = function() { 
     rangeslider.innerHTML = this.value;
-    //let passToChange = document.getElementById( "demo" + i ).textContent;
     changePassword(this.value);
   } 
 
 
 document.getElementById("genPwd").onclick = function() {
     let pwdLength = document.getElementById('pwdLength').value;
-    getPassword(pwdLength)
+    let sliderValue = document.getElementById('sliderRange').value;
+    getPassword(pwdLength);
+    changePassword(sliderValue);
 };
 
 /*
