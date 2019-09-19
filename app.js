@@ -1,16 +1,49 @@
-var words = {};
-var passwordArray = [];
 
-fetch('https://gist.githubusercontent.com/jesseditson/1e6b2b524814320515ccfe7e2f856eda/raw/17d61fa1e80e14b13c4525b09f84148772586b59/words.json')
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(myJson) {
-    //console.log(JSON.stringify(myJson));
-	words = myJson.words;
-  });
+   let words = {};
+   let passwordArray = [];
+
+async function getWords() {
+   let response = await fetch('https://gist.githubusercontent.com/jesseditson/1e6b2b524814320515ccfe7e2f856eda/raw/17d61fa1e80e14b13c4525b09f84148772586b59/words.json')
+   let dict = await response.json();
+   return dict.words;
+ };
+
+document.addEventListener("DOMContentLoaded", async function(){
+   
+   words = await getWords();
+
+//    fetch('https://gist.githubusercontent.com/jesseditson/1e6b2b524814320515ccfe7e2f856eda/raw/17d61fa1e80e14b13c4525b09f84148772586b59/words.json')
+//    .then(function(response) {
+//     return response.json();
+//    })
+//    .then(function(myJson) {
+// 	words = myJson.words; 
+//   });
+  
+  let rangeslider = document.getElementById("sliderRange"); 
+
+   rangeslider.oninput = function() { 
+      rangeslider.innerHTML = this.value;
+      changePassword(this.value);
+   }
+   
+   rangeslider.onchange = function() { 
+      rangeslider.innerHTML = this.value;
+      changePassword(this.value);
+      } 
+
+   document.getElementById("genPwd").onclick = function() {
+      let pwdLength = document.getElementById('pwdLength').value;
+      let sliderValue = document.getElementById('sliderRange').value;
+      getPassword(pwdLength);
+      changePassword(sliderValue);
+   };
+
+});
+
 
 function getPassword(length) {
+   console.log(words);
     passwordArray = [];
     for (let j = 0; j < 3; j++) {
         let password = [];
@@ -27,8 +60,6 @@ function getPassword(length) {
     
     return 1;
 }
-
-let rangeslider = document.getElementById("sliderRange"); 
 
 function changePassword (sliderValue) {
 
@@ -57,22 +88,6 @@ function changePassword (sliderValue) {
     }
 }
 
-rangeslider.oninput = function() { 
-   rangeslider.innerHTML = this.value;
-   changePassword(this.value);
- }
- 
- rangeslider.onchange = function() { 
-     rangeslider.innerHTML = this.value;
-     changePassword(this.value);
-   } 
-
- document.getElementById("genPwd").onclick = function() {
-     let pwdLength = document.getElementById('pwdLength').value;
-     let sliderValue = document.getElementById('sliderRange').value;
-     getPassword(pwdLength);
-     changePassword(sliderValue);
- };
 
 // function changePassword(sliderValue) {
 //     // let newPass1;
