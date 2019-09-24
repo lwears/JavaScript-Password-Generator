@@ -32,7 +32,15 @@ h1 {
 .test {
 	display: inline;
 	margin: 1rem;
-	width: 50%;
+	/*width: 50%;*/
+}
+
+#test1 {
+	display: inline-block;
+}
+
+#sliderValue {
+	display: inline-block;
 }
 
 .custom-select {
@@ -66,14 +74,17 @@ h1 {
 	background-color: #4682b4;
 	border: none;
 	color: white;
-	padding: 13px 32px;
+	padding: 15px 35px;
 	text-align: center;
 	text-decoration: none;
+	/*overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;*/
 	display: inline-block;
-	font-size: 16px;
-	margin-top: 1em;
+	font-size: 15px;
+	margin: 2em 1em;
 	cursor: pointer;
-	width: 100%;
+	/*width: 30%;*/
 }
 
 .slider {

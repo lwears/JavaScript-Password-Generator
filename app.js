@@ -20,17 +20,30 @@ document.addEventListener("DOMContentLoaded", async function(){
 // 	words = myJson.words; 
 //   });
   
-  let rangeslider = document.getElementById("sliderRange"); 
+  let sliderRange = document.getElementById("sliderRange"); 
+  let sliderValue = document.getElementById("sliderValue");
+  
+  function sliderFunc(params) {
+    sliderRange.innerHTML = this.value;
+    if (document.getElementById( "demo1" ).textContent) {
+        changePassword(this.value);
+    }
+  }
 
-   rangeslider.oninput = function() { 
-      rangeslider.innerHTML = this.value;
-      changePassword(this.value);
+   sliderRange.oninput = function() { 
+      sliderRange.innerHTML = this.value;
+      sliderValue.textContent = sliderRange.value;
+      if (document.getElementById( "demo1" ).textContent) {
+        changePassword(this.value);
+      }
    }
    
-   rangeslider.onchange = function() { 
-      rangeslider.innerHTML = this.value;
-      changePassword(this.value);
-      } 
+   sliderRange.onchange = function() { 
+        sliderRange.innerHTML = this.value;
+        if (document.getElementById( "demo1" ).textContent) {
+            changePassword(this.value);
+        }
+    } 
 
    document.getElementById("genPwd").onclick = function() {
       let pwdLength = document.getElementById('pwdLength').value;
@@ -39,11 +52,24 @@ document.addEventListener("DOMContentLoaded", async function(){
       changePassword(sliderValue);
    };
 
+   document.getElementById("genPass").onclick = function() {
+    genPassword(10);
+ };
+
 });
 
+function genPassword(length) {
+    passwordArray = [];
+    for (let i = 0; i < 3; i++) {
+        let newPassword = [...Array(length)].map(i=>(~~(Math.random()*36)).toString(36)).join('');
+        passwordArray.push(newPassword);
+        //console.log(newPassword);
+        document.getElementById( "demo" + i ).textContent = newPassword;
+    }
+}
 
 function getPassword(length) {
-   console.log(words);
+   //console.log(words);
     passwordArray = [];
     for (let j = 0; j < 3; j++) {
         let password = [];
@@ -76,7 +102,6 @@ function changePassword (sliderValue) {
 
     for (let i = 0; i < 3; i++) {
         let passwordToChange = passwordArray[i];
-
         letterArray = Object.keys(letters);
 
         for(let i = 0; i < sliderValue; i++){
