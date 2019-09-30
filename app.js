@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', async function() {
 	// 	words = myJson.words;
 	//   });
 
-	let rangeSlider = document.getElementById('rangeSlider');
-	let rangeValue = document.getElementById('rangeValue');
+	const rangeSlider = document.getElementById('rangeSlider');
+	const rangeValue = document.getElementById('rangeValue');
 
 	rangeSlider.oninput = function() {
 		rangeSlider.innerHTML = this.value;
@@ -45,8 +45,8 @@ document.addEventListener('DOMContentLoaded', async function() {
 	//     }
 	//   }
 
-	let sliderRange = document.getElementById('sliderRange');
-	let sliderValue = document.getElementById('sliderValue');
+	const sliderRange = document.getElementById('sliderRange');
+	const sliderValue = document.getElementById('sliderValue');
 
 	sliderRange.oninput = function() {
 		sliderRange.innerHTML = this.value;
@@ -64,14 +64,14 @@ document.addEventListener('DOMContentLoaded', async function() {
 	};
 
 	document.getElementById('genPwd').onclick = function() {
-		let pwdLength = document.getElementById('pwdLength').value;
-		let sliderValue = document.getElementById('sliderRange').value;
+		const pwdLength = document.getElementById('pwdLength').value;
+		const sliderValue = document.getElementById('sliderRange').value;
 		getPassword(pwdLength);
 		changePassword(sliderValue);
 	};
 
 	document.getElementById('genPass').onclick = function() {
-		let passLength = document.getElementById('rangeSlider').value;
+		const passLength = document.getElementById('rangeSlider').value;
 		genPassword(Number(passLength));
 	};
 });
@@ -81,20 +81,18 @@ document.addEventListener('DOMContentLoaded', async function() {
 function genPassword(length) {
 	passwordArray = [];
 	for (let i = 0; i < 3; i++) {
-		let newPassword = [ ...Array(length) ].map((i) => (~~(Math.random() * 36)).toString(36)).join('');
+		const newPassword = [ ...Array(length) ].map((i) => (~~(Math.random() * 36)).toString(36)).join('');
 		passwordArray.push(newPassword);
-		//console.log(newPassword);
 		document.getElementById('demo' + i).textContent = newPassword;
 	}
 }
 
 function getPassword(length) {
-	//console.log(words);
 	passwordArray = [];
 	for (let j = 0; j < 3; j++) {
 		let password = [];
 		for (let i = 0; i < length; i++) {
-			let item = words[Math.floor(Math.random() * words.length)];
+			const item = words[Math.floor(Math.random() * words.length)];
 			password.push(item);
 		}
 		let newPassword = password.join('-');
