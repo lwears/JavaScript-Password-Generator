@@ -23,41 +23,37 @@ document.addEventListener('DOMContentLoaded', async function() {
 	const rangeSlider = document.getElementById('rangeSlider');
 	const rangeValue = document.getElementById('rangeValue');
 
+	function setRangeValueAndGenPassword() {
+		rangeValue.textContent = this.value;
+		genPassword(Number(this.value));
+	}
+
 	rangeSlider.oninput = function() {
-		rangeSlider.innerHTML = this.value;
+		setRangeValueAndGenPassword.bind(this)();
 		rangeValue.textContent = rangeSlider.value;
-		genPassword(Number(this.value));
 	};
 
-	rangeSlider.onchange = function() {
-		rangeSlider.innerHTML = this.value;
-		genPassword(Number(this.value));
-	};
+	rangeSlider.onchange = setRangeValueAndGenPassword;
 
-	//   function sliderFunc(params) {
-	//     sliderRange.innerHTML = this.value;
-	//     if (document.getElementById( "demo1" ).textContent) {
-	//         changePassword(this.value);
-	//     }
-	//   }
+	////////// End of Slider for amount of characters
 
 	const sliderRange = document.getElementById('sliderRange');
 	const sliderValue = document.getElementById('sliderValue');
 
-	sliderRange.oninput = function() {
-		sliderRange.innerHTML = this.value;
+	function setSliderValueAndChangePass(){
 		sliderValue.textContent = sliderRange.value;
-		if (document.getElementById('demo1').textContent) {
+		if (document.getElementById('pass1').textContent) {
 			changePassword(this.value);
 		}
+	}
+
+	sliderRange.oninput = function() {
+		setSliderValueAndChangePass.bind(this)();
 	};
 
-	sliderRange.onchange = function() {
-		sliderRange.innerHTML = this.value;
-		if (document.getElementById('demo1').textContent) {
-			changePassword(this.value);
-		}
-	};
+	sliderRange.onchange = setSliderValueAndChangePass;
+
+
 
 	document.getElementById('genPwd').onclick = function() {
 		const pwdLength = document.getElementById('pwdLength').value;
@@ -79,7 +75,7 @@ function genPassword(length) {
 	for (let i = 0; i < 3; i++) {
 		const newPassword = [ ...Array(length) ].map((i) => (~~(Math.random() * 36)).toString(36)).join('');
 		passwordArray.push(newPassword);
-		document.getElementById('demo' + i).textContent = newPassword;
+		document.getElementById('pass' + i).textContent = newPassword;
 	}
 }
 
@@ -93,7 +89,7 @@ function getPassword(length) {
 		}
 		let newPassword = password.join('-');
 
-		document.getElementById('demo' + j).textContent = newPassword;
+		document.getElementById('pass' + j).textContent = newPassword;
 		passwordArray.push(newPassword);
 	}
 
@@ -121,7 +117,7 @@ function changePassword(sliderValue) {
 			let replacement = letters[letter];
 			passwordToChange = passwordToChange.replace(new RegExp(letter, 'g'), replacement);
 		}
-		document.getElementById('demo' + i).textContent = passwordToChange;
+		document.getElementById('pass' + i).textContent = passwordToChange;
 	}
 }
 
