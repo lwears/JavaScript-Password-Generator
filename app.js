@@ -26,16 +26,12 @@ document.addEventListener('DOMContentLoaded', async function() {
 	rangeSlider.oninput = function() {
 		rangeSlider.innerHTML = this.value;
 		rangeValue.textContent = rangeSlider.value;
-		if (document.getElementById('demo1').textContent) {
-			genPassword(Number(this.value));
-		}
+		genPassword(Number(this.value));
 	};
 
 	rangeSlider.onchange = function() {
 		rangeSlider.innerHTML = this.value;
-		if (document.getElementById('demo1').textContent) {
-			genPassword(Number(this.value));
-		}
+		genPassword(Number(this.value));
 	};
 
 	//   function sliderFunc(params) {
