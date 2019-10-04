@@ -21,6 +21,7 @@ h1 {
 }
 
 #container {
+    font-size: 16px;
     width: 35rem;
     height: 40rem;
     margin: 100px auto;
@@ -142,7 +143,7 @@ h1 {
 }
 
 @media (max-width: 560px) {
-    body {
+    #container {
         font-size: 14px;
     }
 }

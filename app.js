@@ -9,7 +9,7 @@ async function getWords() {
 	return dict.words;
 }
 
-document.addEventListener('DOMContentLoaded', async function() {
+	document.addEventListener('DOMContentLoaded', async function() {
 	words = await getWords();
 
 	//    fetch('https://gist.githubusercontent.com/jesseditson/1e6b2b524814320515ccfe7e2f856eda/raw/17d61fa1e80e14b13c4525b09f84148772586b59/words.json')
@@ -110,7 +110,7 @@ function changePassword(sliderValue) {
 
 	for (let i = 0; i < 3; i++) {
 		let passwordToChange = passwordArray[i];
-		letterArray = Object.keys(letters);
+		const letterArray = Object.keys(letters);
 
 		for (let i = 0; i < sliderValue; i++) {
 			let letter = letterArray[i];
