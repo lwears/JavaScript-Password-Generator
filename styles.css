@@ -90,7 +90,12 @@ h1 {
     font-size: 15px;
     margin: 2em 1em;
     cursor: pointer;
+    opacity: 0.8;
     /*width: 30%;*/
+}
+
+.button:hover {
+    opacity: 1;
 }
 
 .slider {
