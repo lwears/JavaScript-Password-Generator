@@ -9,6 +9,8 @@ async function getWords() {
 	return dict.words;
 }
 
+	window.onload = function() {alert('Page loaded');}
+
 	document.addEventListener('DOMContentLoaded', async function() {
 	words = await getWords();
 
