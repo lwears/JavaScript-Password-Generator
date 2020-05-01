@@ -78,13 +78,16 @@ function changePassword(sliderValue, currentPasswordArray) {
 
   const letterArray = Object.keys(letters);
 
-  return currentPasswordArray.map((pwd) => {
+  const copyOfArray = currentPasswordArray.slice();
+
+  copyOfArray.forEach((_pwd, index, array) => {
     for (let i = 0; i < sliderValue; i++) {
       const letter = letterArray[i];
       const replacement = letters[letter];
-      return pwd.replace(new RegExp(letter, 'g'), replacement);
+      array[index] = array[index].replace(new RegExp(letter, 'g'), replacement);
     }
   });
+  return copyOfArray;
 }
 
 function generateArray(low, high) {
@@ -146,12 +149,7 @@ form.addEventListener('submit', (e) => {
 
   if (passPhraseRadio.checked) {
     const passPhraseLength = document.getElementById('ppWordAmount').value;
-    const newPassPhrases = genPassPhrase(
-      passPhraseLength,
-      includeUppercaseElement,
-      includeNumbersElement,
-      includeSymbolsElement
-    );
+    const newPassPhrases = genPassPhrase(passPhraseLength);
     state.passwordArray = changePassword(pwdAlphaAmount.value, newPassPhrases);
   } else {
     state.passwordArray = generatePassword(

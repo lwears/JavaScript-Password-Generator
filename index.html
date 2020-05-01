@@ -16,12 +16,25 @@
           <legend class="password-type">What type of password?</legend>
 
           <label for="passWord"
-            ><input type="radio" id="passWord" name="passType" value="Password" checked />
+            ><input
+              autocomplete="off"
+              type="radio"
+              id="passWord"
+              name="passType"
+              value="Password"
+              checked
+            />
             Password</label
           >
 
           <label for="passPhrase"
-            ><input type="radio" id="passPhrase" name="passType" value="Passphrase" />
+            ><input
+              autocomplete="off"
+              type="radio"
+              id="passPhrase"
+              name="passType"
+              value="Passphrase"
+            />
             Passphrase</label
           >
         </fieldset>
@@ -30,8 +43,8 @@
           <label for="ppWordAmount">How many words?</label>
           <select class="" id="ppWordAmount" value="4" autocomplete="off">
             <option value="2">2</option>
-            <option value="3">3</option>
-            <option selected="selected" value="4">4</option>
+            <option selected="selected" value="3">3</option>
+            <option value="4">4</option>
             <option value="5">5</option>
             <option value="6">6</option>
             <option value="7">7</option>
@@ -41,9 +54,9 @@
             <input
               autocomplete="off"
               type="range"
-              min="1"
+              min="0"
               max="7"
-              value="3"
+              value="1"
               class="slider"
               id="pwdAlphaAmount"
             />
@@ -51,8 +64,9 @@
               class="number-input"
               type="number"
               name=""
+              value="1"
               id="pwdAlphaAmountNumber"
-              min="1"
+              min="0"
               max="7"
             />
           </div>
@@ -83,10 +97,10 @@
           </div>
 
           <label for="includeUppercase">Include Uppercase</label>
-          <input type="checkbox" id="includeUppercase" />
+          <input type="checkbox" id="includeUppercase" checked />
 
           <label for="includeNumbers">Include Numbers</label>
-          <input type="checkbox" id="includeNumbers" />
+          <input type="checkbox" id="includeNumbers" checked />
 
           <label for="includeSymbols">Include Symbols</label>
           <input type="checkbox" id="includeSymbols" />
