@@ -1,42 +1,71 @@
-let words = {};
-let passwordArray = [];
+// Initialise state and declare variables
+const state = {
+  words: {},
+  passwordArray: [],
+};
+
+const UPPERCASE_CHAR_CODES = generateArray(65, 90);
+const LOWERCASE_CHAR_CODES = generateArray(97, 122);
+const NUMBER_CHAR_CODES = generateArray(48, 57);
+const SYMBOL_CHAR_CODES = generateArray(33, 47)
+  .concat(generateArray(58, 64))
+  .concat(generateArray(91, 96))
+  .concat(generateArray(123, 126));
+
+// Getting Elements
+
+const includeUppercaseElement = document.getElementById('includeUppercase');
+const includeNumbersElement = document.getElementById('includeNumbers');
+const includeSymbolsElement = document.getElementById('includeSymbols');
+const form = document.getElementById('passwordGeneratorForm');
+const passphraseSettings = document.getElementById('passphraseSettings');
+const passwordSettings = document.getElementById('passwordSettings');
+const passPhraseRadio = document.getElementById('passPhrase');
+const pwdCharAmount = document.getElementById('pwdCharAmount');
+const pwdAlphaAmount = document.getElementById('pwdAlphaAmount');
+const pwdCharAmountNumber = document.getElementById('pwdCharAmountNumber');
+const pwdAlphaAmountNumber = document.getElementById('pwdAlphaAmountNumber');
+const passTypeFieldSet = document.getElementById('pass-type-fieldset');
+
+// Helper Functions
 
 async function getWords() {
   const response = await fetch(
-    'https://gist.githubusercontent.com/jesseditson/1e6b2b524814320515ccfe7e2f856eda/raw/17d61fa1e80e14b13c4525b09f84148772586b59/words.json',
+    'https://gist.githubusercontent.com/jesseditson/1e6b2b524814320515ccfe7e2f856eda/raw/17d61fa1e80e14b13c4525b09f84148772586b59/words.json'
   );
   const dict = await response.json();
   return dict.words;
 }
 
-function genPassword(length) {
-  passwordArray = [];
+function generatePassword(length, uppercase, numbers, symbols) {
+  let charCodes = LOWERCASE_CHAR_CODES;
+  if (numbers.checked) charCodes = charCodes.concat(NUMBER_CHAR_CODES);
+  if (uppercase.checked) charCodes = charCodes.concat(UPPERCASE_CHAR_CODES);
+  if (symbols.checked) charCodes = charCodes.concat(SYMBOL_CHAR_CODES);
+  const passwords = [];
   for (let i = 0; i < 3; i++) {
-    const newPassword = [...Array(length)].map(() => (~~(Math.random() * 36)).toString(36)).join('');
-    passwordArray.push(newPassword);
-    document.getElementById(`pass${i}`).textContent = newPassword;
+    const newPassword = [...Array(length)]
+      .map(() => String.fromCharCode(charCodes[Math.floor(Math.random() * charCodes.length)]))
+      .join('');
+    passwords.push(newPassword);
   }
+  return passwords;
 }
 
-function getPassword(length) {
-  passwordArray = [];
+function genPassPhrase(length) {
+  const passPhrases = [];
   for (let j = 0; j < 3; j++) {
     const password = [];
     for (let i = 0; i < length; i++) {
-      const item = words[Math.floor(Math.random() * words.length)];
+      const item = state.words[Math.floor(Math.random() * state.words.length)];
       password.push(item);
     }
-    const newPassword = password.join('-');
-
-    document.getElementById(`pass${j}`).textContent = newPassword;
-    passwordArray.push(newPassword);
+    passPhrases.push(password.join('-'));
   }
-
-  return 1;
+  return passPhrases;
 }
 
-function changePassword(sliderValue) {
-  // Should also be in external json
+function changePassword(sliderValue, currentPasswordArray) {
   const letters = {
     a: '4',
     e: '3',
@@ -47,68 +76,118 @@ function changePassword(sliderValue) {
     z: '2',
   };
 
-  for (let i = 0; i < 3; i++) {
-    let passwordToChange = passwordArray[i];
-    const letterArray = Object.keys(letters);
+  const letterArray = Object.keys(letters);
 
+  return currentPasswordArray.map((pwd) => {
     for (let i = 0; i < sliderValue; i++) {
       const letter = letterArray[i];
       const replacement = letters[letter];
-      passwordToChange = passwordToChange.replace(new RegExp(letter, 'g'), replacement);
+      return pwd.replace(new RegExp(letter, 'g'), replacement);
     }
-    document.getElementById(`pass${i}`).textContent = passwordToChange;
+  });
+}
+
+function generateArray(low, high) {
+  const array = [];
+  for (let i = low; i < high; i++) {
+    array.push(i);
+  }
+  return array;
+}
+
+function clearState() {
+  state.passwordArray = [];
+}
+
+function syncCharAmount(e) {
+  const value = e.target.value;
+  pwdCharAmountNumber.value = value;
+  pwdCharAmount.value = value;
+}
+
+function syncAlphaAmount(e) {
+  const value = e.target.value;
+  pwdAlphaAmountNumber.value = value;
+  pwdAlphaAmount.value = value;
+}
+
+// Template & Rendering
+
+const buildPwdList = (pwd, id) => `<p id="pass${id}" class="password">${pwd}</p>`;
+
+const template = (currentState) =>
+  currentState.passwordArray.map((pwd, index) => buildPwdList(pwd, index)).join('');
+
+const render = (htmlString, element) => {
+  const updateElement = element;
+  updateElement.innerHTML = htmlString;
+};
+
+// Event Listeners
+
+window.onload = async () => {
+  state.words = await getWords();
+};
+
+passTypeFieldSet.addEventListener('change', ShowCorrectSettings);
+
+function ShowCorrectSettings() {
+  if (passPhraseRadio.checked) {
+    passwordSettings.classList.add('is-hidden');
+    passphraseSettings.classList.remove('is-hidden');
+  } else {
+    passwordSettings.classList.remove('is-hidden');
+    passphraseSettings.classList.add('is-hidden');
   }
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
-  words = await getWords();
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
 
-  const rangeSlider = document.getElementById('rangeSlider');
-  const rangeValue = document.getElementById('rangeValue');
-
-  function setRangeValueAndGenPassword() {
-    rangeValue.textContent = this.value;
-    genPassword(Number(this.value));
+  if (passPhraseRadio.checked) {
+    const passPhraseLength = document.getElementById('ppWordAmount').value;
+    const newPassPhrases = genPassPhrase(
+      passPhraseLength,
+      includeUppercaseElement,
+      includeNumbersElement,
+      includeSymbolsElement
+    );
+    state.passwordArray = changePassword(pwdAlphaAmount.value, newPassPhrases);
+  } else {
+    state.passwordArray = generatePassword(
+      Number(pwdCharAmount.value),
+      includeUppercaseElement,
+      includeNumbersElement,
+      includeSymbolsElement
+    );
   }
-
-  rangeSlider.oninput = () => {
-    setRangeValueAndGenPassword.bind(this)();
-    rangeValue.textContent = rangeSlider.value;
-  };
-
-  rangeSlider.onchange = setRangeValueAndGenPassword;
-
-  // //////// End of Slider for amount of characters
-
-  const sliderRange = document.getElementById('sliderRange');
-  const sliderValue = document.getElementById('sliderValue');
-
-  function setSliderValueAndChangePass() {
-    sliderValue.textContent = sliderRange.value;
-    if (document.getElementById('pass1').textContent) {
-      changePassword(this.value);
-    }
-  }
-
-  sliderRange.oninput = () => {
-    setSliderValueAndChangePass.bind(this)();
-  };
-
-  sliderRange.onchange = setSliderValueAndChangePass;
-
-  // //////// End of Slider for password length
-
-  document.getElementById('genPwd').onclick = () => {
-    const pwdLength = document.getElementById('pwdLength').value;
-    const sliderValue = document.getElementById('sliderRange').value;
-    getPassword(pwdLength);
-    changePassword(sliderValue);
-  };
-
-  document.getElementById('genPass').onclick = () => {
-    const passLength = document.getElementById('rangeSlider').value;
-    genPassword(Number(passLength));
-  };
+  window.dispatchEvent(new Event('statechange'));
 });
 
-// End of DomContentLoaded Function
+pwdCharAmountNumber.addEventListener('input', syncCharAmount);
+pwdAlphaAmountNumber.addEventListener('input', syncAlphaAmount);
+
+pwdCharAmount.addEventListener('input', (e) => {
+  syncCharAmount(e);
+  if (document.getElementById('pass1').textContent) {
+    state.passwordArray = generatePassword(
+      Number(pwdCharAmount.value),
+      includeUppercaseElement,
+      includeNumbersElement,
+      includeSymbolsElement
+    );
+  }
+  window.dispatchEvent(new Event('statechange'));
+});
+
+pwdAlphaAmount.addEventListener('input', (e) => {
+  syncAlphaAmount(e);
+  if (document.getElementById('pass1').textContent) {
+    state.passwordArray = changePassword(pwdAlphaAmount.value, state.passwordArray);
+  }
+  window.dispatchEvent(new Event('statechange'));
+});
+
+window.addEventListener('statechange', () => {
+  render(template(state), document.querySelector('#password-options'));
+});

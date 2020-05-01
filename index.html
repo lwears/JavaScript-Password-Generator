@@ -1,53 +1,103 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"> 
-    <link rel="stylesheet" href="styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
     <title>Pass Generator</title>
-</head>
-<body>
-    <div id="container">
-        <h1>Liams Password Generator</h1>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="heading">Password Generator</h1>
 
-        <p class="wrapper">How many words would you like</p>
+      <form class="form" action="" id="passwordGeneratorForm">
+        <fieldset id="pass-type-fieldset" class="">
+          <legend class="password-type">What type of password?</legend>
 
-        <select class="custom-select wrapper" id="pwdLength" value="4" autocomplete="off">
+          <label for="passWord"
+            ><input type="radio" id="passWord" name="passType" value="Password" checked />
+            Password</label
+          >
+
+          <label for="passPhrase"
+            ><input type="radio" id="passPhrase" name="passType" value="Passphrase" />
+            Passphrase</label
+          >
+        </fieldset>
+
+        <div class="passphraseSettings is-hidden grid-container" id="passphraseSettings">
+          <label for="ppWordAmount">How many words?</label>
+          <select class="" id="ppWordAmount" value="4" autocomplete="off">
             <option value="2">2</option>
             <option value="3">3</option>
             <option selected="selected" value="4">4</option>
             <option value="5">5</option>
             <option value="6">6</option>
             <option value="7">7</option>
-        </select>
-
-
-        <div class="margin">
-            <p id="test1">How alphanumeric would you like the passphrase?&nbsp;</p><p id="sliderValue">3</p>
-            <div class="wrapper">
-                <input autocomplete="off" type="range" min="0" max="7" value="3" class="slider" id="sliderRange">
-            </div>
+          </select>
+          <label for="pwdAlphaAmountNumber">Add numbers to passphrase</label>
+          <div class="character-amount-container">
+            <input
+              autocomplete="off"
+              type="range"
+              min="1"
+              max="7"
+              value="3"
+              class="slider"
+              id="pwdAlphaAmount"
+            />
+            <input
+              class="number-input"
+              type="number"
+              name=""
+              id="pwdAlphaAmountNumber"
+              min="1"
+              max="7"
+            />
+          </div>
         </div>
 
-        <div class="margin">
-            <p id="test1">How many password characters?&nbsp;&nbsp;</p><p id="rangeValue">10</p>
-            <div class="wrapper">
-                <input autocomplete="off" type="range" min="0" max="21" value="10" class="slider" id="rangeSlider">
-            </div>
+        <div class="passwordSettings grid-container" id="passwordSettings">
+          <label for="pwdCharAmountNumber">How many characters?</label>
+          <div class="character-amount-container">
+            <input
+              autocomplete="off"
+              type="range"
+              min="1"
+              max="21"
+              value="10"
+              class="slider"
+              id="pwdCharAmount"
+            />
+            <input
+              autocomplete="off"
+              class="number-input"
+              type="number"
+              name=""
+              id="pwdCharAmountNumber"
+              min="1"
+              max="21"
+              value="10"
+            />
+          </div>
+
+          <label for="includeUppercase">Include Uppercase</label>
+          <input type="checkbox" id="includeUppercase" />
+
+          <label for="includeNumbers">Include Numbers</label>
+          <input type="checkbox" id="includeNumbers" />
+
+          <label for="includeSymbols">Include Symbols</label>
+          <input type="checkbox" id="includeSymbols" />
         </div>
 
-        <div>
-            <input class="button" type="button" value="Generate PassPhrase" id="genPwd">
-            <input class="button" type="button" value="Generate Password" id="genPass">
-        </div>
+        <input class="button" type="submit" value="Generate Password" id="genPassword" />
+      </form>
 
-        <h2>Password Options</h2>
-        <p><span id="pass0"></span></p>
-        <p><span id="pass1"></span></p>
-        <p><span id="pass2"></span></p>
+      <h2>Password Options:</h2>
+      <div class="password-grid" id="password-options"></div>
     </div>
-
-</body>
-<script type="text/javascript" src="app.js"></script>
+  </body>
+  <script type="text/javascript" src="app.js"></script>
 </html>

@@ -1,7 +1,13 @@
-# Password  Generator
+# Password Generator
 
-### A small frontend only app I created last year.
+## Frontend
+
+- Vanilla JS
+
+## About
+
+A small frontend only app I created last year.
 
 ## todo
-Refactor
-Update
+
+- CSS for mobile
