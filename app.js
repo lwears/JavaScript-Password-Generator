@@ -1,4 +1,3 @@
-// Initialise state and declare variables
 const state = {
   words: {},
   passwordArray: [],
@@ -43,9 +42,13 @@ function generatePassword(length, uppercase, numbers, symbols) {
   if (uppercase.checked) charCodes = charCodes.concat(UPPERCASE_CHAR_CODES);
   if (symbols.checked) charCodes = charCodes.concat(SYMBOL_CHAR_CODES);
   const passwords = [];
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 3; i += 1) {
     const newPassword = [...Array(length)]
-      .map(() => String.fromCharCode(charCodes[Math.floor(Math.random() * charCodes.length)]))
+      .map(() =>
+        String.fromCharCode(
+          charCodes[Math.floor(Math.random() * charCodes.length)]
+        )
+      )
       .join('');
     passwords.push(newPassword);
   }
@@ -54,9 +57,9 @@ function generatePassword(length, uppercase, numbers, symbols) {
 
 function genPassPhrase(length) {
   const passPhrases = [];
-  for (let j = 0; j < 3; j++) {
+  for (let j = 0; j < 3; j += 1) {
     const password = [];
-    for (let i = 0; i < length; i++) {
+    for (let i = 0; i < length; i += 1) {
       const item = state.words[Math.floor(Math.random() * state.words.length)];
       password.push(item);
     }
@@ -81,7 +84,7 @@ function changePassword(sliderValue, currentPasswordArray) {
   const copyOfArray = currentPasswordArray.slice();
 
   copyOfArray.forEach((_pwd, index, array) => {
-    for (let i = 0; i < sliderValue; i++) {
+    for (let i = 0; i < sliderValue; i += 1) {
       const letter = letterArray[i];
       const replacement = letters[letter];
       array[index] = array[index].replace(new RegExp(letter, 'g'), replacement);
@@ -92,7 +95,7 @@ function changePassword(sliderValue, currentPasswordArray) {
 
 function generateArray(low, high) {
   const array = [];
-  for (let i = low; i < high; i++) {
+  for (let i = low; i < high; i += 1) {
     array.push(i);
   }
   return array;
@@ -103,23 +106,51 @@ function clearState() {
 }
 
 function syncCharAmount(e) {
-  const value = e.target.value;
+  const { value } = e.target;
   pwdCharAmountNumber.value = value;
   pwdCharAmount.value = value;
 }
 
 function syncAlphaAmount(e) {
-  const value = e.target.value;
+  const { value } = e.target;
   pwdAlphaAmountNumber.value = value;
   pwdAlphaAmount.value = value;
 }
 
+function copyText(pid) {
+  const textToCopy = document.getElementById(pid).innerHTML;
+  const temp = document.createElement('INPUT');
+  temp.value = textToCopy;
+  document.body.appendChild(temp);
+  temp.select();
+  document.execCommand('copy');
+  temp.remove();
+  alert('Text Copied!');
+}
+
+function ShowCorrectSettings() {
+  if (passPhraseRadio.checked) {
+    passwordSettings.classList.add('is-hidden');
+    passphraseSettings.classList.remove('is-hidden');
+  } else {
+    passwordSettings.classList.remove('is-hidden');
+    passphraseSettings.classList.add('is-hidden');
+  }
+}
+
 // Template & Rendering
 
-const buildPwdList = (pwd, id) => `<p id="pass${id}" class="password">${pwd}</p>`;
+const buildPwdList = (pwd, id) => `
+  <div class="pwd-item">
+    <p id="pass${id}" class="password">${pwd}</p>
+    <button class="button copy-button" onclick="copyText('pass${id}')">Copy text</button>
+  </div>
+`;
 
 const template = (currentState) =>
-  currentState.passwordArray.map((pwd, index) => buildPwdList(pwd, index)).join('');
+  currentState.passwordArray
+    .map((pwd, index) => buildPwdList(pwd, index))
+    .join('');
 
 const render = (htmlString, element) => {
   const updateElement = element;
@@ -133,16 +164,6 @@ window.onload = async () => {
 };
 
 passTypeFieldSet.addEventListener('change', ShowCorrectSettings);
-
-function ShowCorrectSettings() {
-  if (passPhraseRadio.checked) {
-    passwordSettings.classList.add('is-hidden');
-    passphraseSettings.classList.remove('is-hidden');
-  } else {
-    passwordSettings.classList.remove('is-hidden');
-    passphraseSettings.classList.add('is-hidden');
-  }
-}
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -181,7 +202,10 @@ pwdCharAmount.addEventListener('input', (e) => {
 pwdAlphaAmount.addEventListener('input', (e) => {
   syncAlphaAmount(e);
   if (document.getElementById('pass1').textContent) {
-    state.passwordArray = changePassword(pwdAlphaAmount.value, state.passwordArray);
+    state.passwordArray = changePassword(
+      pwdAlphaAmount.value,
+      state.passwordArray
+    );
   }
   window.dispatchEvent(new Event('statechange'));
 });

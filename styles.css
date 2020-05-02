@@ -84,16 +84,29 @@ fieldset legend {
 .password-grid {
   flex: 1 2 30%;
   display: grid;
-  grid-template-columns: auto;
+  grid-template-columns: 2fr;
   justify-content: center;
   align-items: center;
   border-radius: 5px;
   height: 150px;
   padding: 1rem;
+  width: 100%;
+}
+
+.pwd-item {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .password-type {
   grid-column: span 2;
+}
+
+.copy-button {
+  padding: 5px;
 }
 
 .is-hidden {
@@ -122,18 +135,20 @@ select {
   background-color: #4682b4;
   border: none;
   color: white;
-  padding: 15px 35px;
   text-align: center;
   text-decoration: none;
   font-size: 15px;
-
   cursor: pointer;
   opacity: 0.8;
-  grid-column: span 2;
 }
 
 .button:hover {
   opacity: 1;
+}
+
+.password-button {
+  padding: 1rem 2rem;
+  width: 70%;
 }
 
 .character-amount-container {
