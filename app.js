@@ -81,16 +81,15 @@ function changePassword(sliderValue, currentPasswordArray) {
 
   const letterArray = Object.keys(letters);
 
-  const copyOfArray = currentPasswordArray.slice();
-
-  copyOfArray.forEach((_pwd, index, array) => {
+  return currentPasswordArray.map((pwd) => {
+    let newPWD = pwd;
     for (let i = 0; i < sliderValue; i += 1) {
       const letter = letterArray[i];
       const replacement = letters[letter];
-      array[index] = array[index].replace(new RegExp(letter, 'g'), replacement);
+      newPWD = newPWD.replace(new RegExp(letter, 'g'), replacement);
     }
+    return newPWD;
   });
-  return copyOfArray;
 }
 
 function generateArray(low, high) {
