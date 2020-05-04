@@ -13,7 +13,7 @@ https://lwears.github.io/JavaScript-Password-Generator/
 
 ## About
 
-A small frontend only app I created last year.
+This is a small frontend only Vanilla JS App I started building before completing the Fullstack Developer program at SALT. I recently have found the time to start again and its almost done: I am happy to share it now as all functionality is available.
 
 ## Todo
 
