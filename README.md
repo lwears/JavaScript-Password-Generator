@@ -1,6 +1,6 @@
 # Password Generator
 
-https://lwears.github.io/pwd-app
+https://lwears.github.io/JavaScript-Password-Generator/
 
 ## Frontend
 
