@@ -6,6 +6,11 @@ https://lwears.github.io/pwd-app
 
 - Vanilla JS
 
+## Linting
+
+- Airbnb
+- Prettier
+
 ## About
 
 A small frontend only app I created last year.

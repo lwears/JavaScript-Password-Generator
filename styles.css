@@ -89,7 +89,7 @@ fieldset legend {
   align-items: center;
   border-radius: 5px;
   height: 150px;
-  padding: 1rem;
+  padding: 2rem;
   width: 100%;
 }
 
@@ -185,10 +185,4 @@ select {
   height: 20px;
   background: steelblue;
   cursor: pointer;
-}
-
-@media (max-width: 760px) {
-}
-
-@media (max-width: 560px) {
 }
