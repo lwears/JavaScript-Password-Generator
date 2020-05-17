@@ -139,22 +139,24 @@ function ShowCorrectSettings() {
 
 // Template & Rendering
 
-const buildPwdList = (pwd, id) => `
-  <div class="pwd-item">
+function buildPwdList(pwd, id) {
+  return ` <div class="pwd-item">
     <p id="pass${id}" class="password">${pwd}</p>
     <button class="button copy-button" onclick="copyText('pass${id}')">Copy text</button>
   </div>
 `;
+}
 
-const template = (currentState) =>
-  currentState.passwordArray
+function template(currentState) {
+  return currentState.passwordArray
     .map((pwd, index) => buildPwdList(pwd, index))
     .join('');
+}
 
-const render = (htmlString, element) => {
+function render(htmlString, element) {
   const updateElement = element;
   updateElement.innerHTML = htmlString;
-};
+}
 
 // Event Listeners
 
